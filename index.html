@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>PureScan Beauty</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink-hot: #E91E8C;
+      --pink-light: #FFB6D9;
+      --pink-pale: #FFD6E8;
+      --pink-card: #F72BA0;
+      --cream: #FFF5E1;
+      --yellow-light: #FFF3C4;
+      --white: #FFFFFF;
+      --text-dark: #2D0A1E;
+      --text-mid: #5A1A3A;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      min-height: 100vh;
+      max-width: 430px;
+      margin: 0 auto;
+      background: linear-gradient(
+        180deg,
+        #FFF3C4 0%,
+        #FFE5D0 20%,
+        #FFD0E8 50%,
+        #FFB6D9 80%,
+        #FF9FCC 100%
+      );
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* ── SPARKLES ── */
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.7;
+      animation: twinkle 2.5s ease-in-out infinite alternate;
+    }
+    .sparkle svg { display: block; }
+    @keyframes twinkle {
+      from { opacity: 0.4; transform: scale(0.85) rotate(0deg); }
+      to   { opacity: 1;   transform: scale(1.15) rotate(20deg); }
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 28px 20px 12px;
+    }
+    .header-pill {
+      background: var(--white);
+      border-radius: 50px;
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.15);
+    }
+    .flower-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--pink-hot);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── TAGLINE ── */
+    .tagline {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-mid);
+      font-weight: 600;
+      margin: 4px 0 24px;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── FEATURE CARD ── */
+    .feature-card {
+      background: var(--pink-card);
+      border-radius: 28px;
+      margin: 0 20px 32px;
+      padding: 24px 22px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: 0 8px 30px rgba(233,30,140,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: 40px;
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+
+    .feature-text { flex: 1; z-index: 1; }
+    .feature-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 26px;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .feature-img-wrap {
+      flex-shrink: 0;
+      width: 110px;
+      z-index: 1;
+      align-self: center;
+    }
+    .feature-img-wrap img {
+      width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+    }
+
+    /* ── CAMERA CARD ── */
+    .camera-card {
+      background: var(--white);
+      border-radius: 28px;
+      margin: 0 20px;
+      padding: 20px 18px 24px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.09);
+    }
+
+    /* camera header bar */
+    .cam-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .cam-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .cam-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 6px #22C55E88;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.3); opacity: 0.7; }
+    }
+    .cam-icon-svg { color: #555; }
+
+    .scan-btn {
+      background: var(--pink-pale);
+      color: var(--pink-hot);
+      border: none;
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .scan-btn:hover { background: var(--pink-light); transform: scale(1.04); }
+
+    /* viewfinder */
+    .viewfinder {
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: #1a0025;
+      aspect-ratio: 1 / 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* camera feed */
+    #cameraFeed {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      display: none;
+    }
+
+    /* gradient glow inside viewfinder */
+    .vf-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 30% at 50% 55%, rgba(233,30,140,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* corner brackets */
+    .vf-corner {
+      position: absolute;
+      width: 36px; height: 36px;
+      border-color: var(--pink-hot);
+      border-style: solid;
+      border-width: 0;
+    }
+    .vf-corner.tl { top: 12px; left: 12px; border-top-width: 3px; border-left-width: 3px; border-radius: 4px 0 0 0; }
+    .vf-corner.tr { top: 12px; right: 12px; border-top-width: 3px; border-right-width: 3px; border-radius: 0 4px 0 0; }
+    .vf-corner.bl { bottom: 12px; left: 12px; border-bottom-width: 3px; border-left-width: 3px; border-radius: 0 0 0 4px; }
+    .vf-corner.br { bottom: 12px; right: 12px; border-bottom-width: 3px; border-right-width: 3px; border-radius: 0 0 4px 0; }
+
+    /* scan line animation */
+    .scan-line {
+      position: absolute;
+      left: 12px; right: 12px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--pink-hot), transparent);
+      animation: scanMove 2.5s ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes scanMove {
+      0%   { top: 15%; opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { top: 85%; opacity: 0; }
+    }
+
+    /* idle state */
+    .vf-idle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+      position: relative;
+    }
+    .vf-cam-ring {
+      width: 62px; height: 62px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: rotateSlow 8s linear infinite;
+    }
+    @keyframes rotateSlow { to { transform: rotate(360deg); } }
+    .vf-idle p {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .vf-idle span {
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+    }
+
+    /* hint */
+    .cam-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+    }
+
+    /* ── START BUTTON ── */
+    .start-btn {
+      display: block;
+      width: calc(100% - 40px);
+      margin: 24px auto 0;
+      background: linear-gradient(135deg, var(--pink-hot), #C2006A);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      padding: 16px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(233,30,140,0.4);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .start-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,30,140,0.5); }
+    .start-btn:active { transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    .footer-pill {
+      background: var(--white);
+      border-radius: 50px;
+      margin: 30px 20px 0;
+      padding: 14px 20px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.12);
+    }
+    .footer-pill span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--pink-hot);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 24px;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+    .modal-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--pink-hot);
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .modal-box p { font-size: 14px; color: #555; line-height: 1.5; margin-bottom: 20px; }
+    .modal-btn {
+      background: var(--pink-hot);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 32px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 0 6px;
+    }
+    .modal-btn.ghost {
+      background: transparent;
+      color: var(--pink-hot);
+      border: 2px solid var(--pink-hot);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Sparkles -->
+  <div class="sparkle" style="top:18px;left:14px;animation-delay:0s">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <path d="M11 1 L12.2 8.8 L20 10 L12.2 11.2 L11 19 L9.8 11.2 L2 10 L9.8 8.8 Z" fill="#F72BA0" opacity="0.7"/>
+    </svg>
+  </div>
+  <div class="sparkle" style="top:20px;right:18px;animation-delay:0.8s">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M9 1 L10 7.5 L16 8.5 L10 9.5 L9 16 L8 9.5 L2 8.5 L8 7.5 Z" fill="#F72BA0" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="sparkle" style="top:260px;right:10px;animation-delay:1.2s">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 1 L8.9 6.5 L14 7.5 L8.9 8.5 L8 14 L7.1 8.5 L2 7.5 L7.1 6.5 Z" fill="#FF69B4" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="sparkle" style="bottom:160px;left:12px;animation-delay:0.4s">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M10 1 L11.2 8 L18 9 L11.2 10 L10 17 L8.8 10 L2 9 L8.8 8 Z" fill="#E91E8C" opacity="0.55"/>
+    </svg>
+  </div>
+  <div class="sparkle" style="bottom:80px;right:16px;animation-delay:1.6s">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1 L7.8 5.8 L12 6.5 L7.8 7.2 L7 12 L6.2 7.2 L2 6.5 L6.2 5.8 Z" fill="#FF69B4" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-pill">
+      <img src="c:\Users\hp\OneDrive\Pictures\907e4c4de88637015a70ea9eec293fb0.jpg" alt="flower" class="flower-icon" onerror="this.style.display='none'" />
+      <span class="header-title">PureScan Beauty</span>
+    </div>
+  </div>
+
+  <!-- Tagline -->
+  <p class="tagline">Scan QR code produk skincare-mu!</p>
+
+  <!-- Feature Card -->
+  <div class="feature-card">
+    <div class="feature-text">
+      <h2>Kenali Produk<br>Skincare</h2>
+      <p>Arahkan kamera ke QR code untuk melihat kandungan, manfaat dan video tutorial pemakaian</p>
+    </div>
+    <div class="feature-img-wrap">
+      <img src="skincare.jpg" alt="Skincare products" onerror="this.style.display='none'" />
+    </div>
+  </div>
+
+  <!-- Camera Card -->
+  <div class="camera-card">
+    <div class="cam-bar">
+      <div class="cam-status">
+        <svg class="cam-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <div class="cam-dot"></div>
+        Kamera Aktif
+      </div>
+      <button class="scan-btn" onclick="triggerScan()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        Scan QR
+      </button>
+    </div>
+
+    <!-- Viewfinder -->
+    <div class="viewfinder" id="viewfinder">
+      <video id="cameraFeed" autoplay playsinline muted></video>
+      <div class="vf-glow"></div>
+      <div class="vf-corner tl"></div>
+      <div class="vf-corner tr"></div>
+      <div class="vf-corner bl"></div>
+      <div class="vf-corner br"></div>
+      <div class="scan-line" id="scanLine"></div>
+      <div class="vf-idle" id="vfIdle">
+        <div class="vf-cam-ring">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.8">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <p>Kamera Siap</p>
+        <span>Izinkan akses kamera</span>
+      </div>
+    </div>
+
+    <!-- Hint -->
+    <div class="cam-hint">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <ellipse cx="12" cy="12" rx="10" ry="7"/><circle cx="12" cy="12" r="3"/>
+      </svg>
+      Posisikan QR code di dalam kotak pemindai
+    </div>
+  </div>
+
+  <!-- Start Button -->
+  <button class="start-btn" onclick="startCamera()">
+    Mulai Scan Sekarang
+  </button>
+
+  <!-- Footer -->
+  <div class="footer-pill">
+    <span>Welcome to PureScan Beauty</span>
+  </div>
+
+  <!-- Flower decorations bottom -->
+  <div style="display:flex;justify-content:space-between;padding:16px 18px 0;">
+    <img src="flower.jpg" alt="" style="width:38px;height:38px;border-radius:50%;object-fit:cover;opacity:0.8;" onerror="this.style.display='none'" />
+    <img src="flower.jpg" alt="" style="width:38px;height:38px;border-radius:50%;object-fit:cover;opacity:0.8;" onerror="this.style.display='none'" />
+  </div>
+
+</div>
+
+<!-- Permission Modal -->
+<div class="modal-overlay" id="permModal">
+  <div class="modal-box">
+    <h3>Izin Kamera</h3>
+    <p>PureScan Beauty membutuhkan akses kamera untuk memindai QR code produk skincare Anda.</p>
+    <button class="modal-btn" onclick="grantCamera()">Izinkan</button>
+    <button class="modal-btn ghost" onclick="closeModal()">Nanti</button>
+  </div>
+</div>
+
+<script>
+  let stream = null;
+  let cameraActive = false;
+
+  // Copy uploaded images to correct relative paths
+  // The images are referenced as skincare.jpg and flower.jpg
+
+  function startCamera() {
+    document.getElementById('permModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('permModal').classList.remove('active');
+  }
+
+  async function grantCamera() {
+    closeModal();
+    await activateCamera();
+  }
+
+  async function activateCamera() {
+    if (cameraActive) return;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      const video = document.getElementById('cameraFeed');
+      video.srcObject = stream;
+      video.style.display = 'block';
+      document.getElementById('vfIdle').style.display = 'none';
+      document.getElementById('scanLine').style.animation = 'scanMove 2.5s ease-in-out infinite';
+      cameraActive = true;
+
+      // Update dot and label
+      document.querySelector('.cam-dot').style.background = '#22C55E';
+    } catch (err) {
+      alert('Tidak dapat mengakses kamera. Pastikan browser memiliki izin akses kamera dan coba lagi.\n\nError: ' + err.message);
+    }
+  }
+
+  function triggerScan() {
+    if (!cameraActive) {
+      startCamera();
+    } else {
+      // Simulate scan feedback
+      const line = document.getElementById('scanLine');
+      line.style.background = 'linear-gradient(90deg, transparent, #22C55E, transparent)';
+      setTimeout(() => {
+        line.style.background = 'linear-gradient(90deg, transparent, var(--pink-hot, #E91E8C), transparent)';
+      }, 1500);
+    }
+  }
+
+  // Auto-request camera on page load if permission already granted
+  window.addEventListener('load', () => {
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'camera' }).then(res => {
+        if (res.state === 'granted') activateCamera();
+      }).catch(() => {});
+    }
+  });
+</script>
+</body>
+</html>
